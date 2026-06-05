@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<script>
+
+function toggleDarkMode(){
+
+    document.body.classList.toggle('dark-mode')
+
+}
+
+</script>
+<body>
+    <button class="dark-mode-btn" onclick="toggleDarkMode()">
+    🌙 Dark Mode
+</button>
+
+<div class="navbar">
+
+    <h2>Cloud File System</h2>
+
+    <div class="nav-right">
+
+<img
+    src="{{ url_for('static',
+    filename='profile_pics/' + current_user.profile_pic) }}"
+    class="profile-pic"
+>
+
+<span>
+    {{ current_user.username }}
+</span>
+
+<div class="profile-buttons">
+
+<form
+    action="/upload_profile"
+    method="POST"
+    enctype="multipart/form-data"
+>
+
+<label for="profileInput" class="change-photo-btn">
+    Change Photo
+</label>
+
+<input
+    type="file"
+    id="profileInput"
+    name="profile_pic"
+    accept="image/*"
+    style="display: none;"
+    onchange="this.form.submit()"
+>
+
+</form>
+
+<a href="/logout" class="logout-btn">
+    Logout
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="container">
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="card">
+
+    <h2>User Information</h2>
+
+    <p><strong>Username:</strong> {{ current_user.username }}</p>
+
+    <p><strong>Total Files:</strong> {{ total_files }}</p>
+
+</div>
+
+    <div class="card">
+
+        <h1>Dashboard</h1>
+
+        <p>Upload your files securely</p>
+
+<form
+    method="POST"
+    enctype="multipart/form-data"
+    class="upload-box"
+>
+
+    <div class="upload-top">
+
+
+    </div>
+
+    <div class="drag-area">
+
+        <label for="fileInput" class="drag-text">
+
+            📂 Drag & Drop files here
+            <br>
+            or click to browse
+
+        </label>
+
+    </div>
+
+<input
+    type="file"
+    id="fileInput"
+    name="file"
+    required
+>
+
+    <button type="submit">
+        ⬆ Upload
+    </button>
+
+
+</form>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Your Files</h2>
+<form method="GET" class="search-box">
+
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search files..."
+    >
+    <select name="type" class="filter-select">
+
+    <option value="">All Files</option>
+
+    <option value="image">Images</option>
+
+    <option value="pdf">PDF</option>
+
+    <option value="docx">Documents</option>
+
+    <option value="ppt">Presentations</option>
+
+</select>
+
+    <button type="submit">
+        🔍 Search
+    </button>
+
+</form>
+
+{% if files %}
+
+    {% for file in files %}
+
+    <div class="file-box">
+
+        <div>
+
+            <span class="file-name">
+
+{% if file.filename.endswith('.pdf') %}
+📕
+{% elif file.filename.endswith('.png')
+or file.filename.endswith('.jpg')
+or file.filename.endswith('.jpeg') %}
+🖼️
+{% elif file.filename.endswith('.docx') %}
+📘
+{% elif file.filename.endswith('.ppt')
+or file.filename.endswith('.pptx') %}
+📙
+{% else %}
+📄
+{% endif %}
+
+{{ file.filename }}
+
+</span>
+            <p class="file-date">
+                Uploaded:
+                {{ file.created_at.strftime('%d.%m.%Y %H:%M') }}
+            </p>
+
+            <p class="download-count">
+                Downloads: {{ file.downloads }}
+            </p>
+            <p class="file-size">
+                Size: {{ file.size }}
+            </p>
+
+        </div>
+         
+        
+<div>
+
+{% if file.filename.endswith('.png')
+or file.filename.endswith('.jpg')
+or file.filename.endswith('.jpeg')
+or file.filename.endswith('.pdf')
+or file.filename.endswith('.ppt')
+or file.filename.endswith('.pptx')
+or file.filename.endswith('.docx') %}
+
+<a class="preview-btn"
+   href="/uploads/{{ file.filename }}"
+   target="_blank">
+
+   Preview
+
+</a>
+
+{% endif %}
+
+<a class="download-btn"
+   href="/download/{{ file.filename }}">
+   Download
+</a>
+
+<a
+  class="delete-btn"
+  href="/delete/{{ file.filename }}"
+  onclick="return confirm('Are you sure you want to delete this file?')"
+>
+  Delete
+</a>
+
+</div>
+
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="empty-box">
+
+    <h3>📂 No files uploaded</h3>
+
+    <p>
+        Upload your first file to start using cloud storage.
+    </p>
+
+</div>
+
+{% endif %}
+
+    </div>
+
+</div>
+<script>
+
+const dragArea = document.querySelector(".drag-area")
+
+const fileInput = document.getElementById("fileInput")
+
+dragArea.addEventListener("dragover", (e) => {
+
+    e.preventDefault()
+
+})
+
+dragArea.addEventListener("drop", (e) => {
+
+    e.preventDefault()
+
+    fileInput.files = e.dataTransfer.files
+
+})
+
+</script>
+</body>
+</html>
