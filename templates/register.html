@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Qeydiyyat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="auth-page">
 
 <div class="auth-container">
 
-    <h1>Register</h1>
+    <h1>Qeydiyyat</h1>
 
     <form method="POST">
 
-    <input type="text" name="username" placeholder="Username" required>
+    <input type="text" name="username" placeholder="İstifadəçi adı" required>
+
     <input
     type="email"
     name="email"
-    placeholder="Email"
+    placeholder="E-poçt"
     required
 >
-    <input type="password" name="password" placeholder="Password" required>
 
-    <button type="submit">Register</button>
+    <input type="password" name="password" placeholder="Şifrə" required>
+
+    <button type="submit">Qeydiyyatdan keç</button>
 
 </form>
 

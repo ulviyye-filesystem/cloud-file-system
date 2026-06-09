@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard</title>
+    <title>İdarə Paneli</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
@@ -21,12 +21,12 @@ function toggleDarkMode(){
 </script>
 <body>
     <button class="dark-mode-btn" onclick="toggleDarkMode()">
-    🌙 Dark Mode
+    🌙 Qaranlıq Rejim
 </button>
 
 <div class="navbar">
 
-    <h2>Cloud File System</h2>
+    <h2>Bulud Fayl Sistemi</h2>
 
     <div class="nav-right">
 
@@ -49,7 +49,7 @@ function toggleDarkMode(){
 >
 
 <label for="profileInput" class="change-photo-btn">
-    Change Photo
+    Şəkli dəyiş
 </label>
 
 <input
@@ -64,7 +64,7 @@ function toggleDarkMode(){
 </form>
 
 <a href="/logout" class="logout-btn">
-    Logout
+    Çıxış
 </a>
 
 </div>
@@ -86,19 +86,19 @@ function toggleDarkMode(){
     {% endwith %}
     <div class="card">
 
-    <h2>User Information</h2>
+    <h2>İstifadəçi Məlumatları</h2>
 
-    <p><strong>Username:</strong> {{ current_user.username }}</p>
+    <p><strong>İstifadəçi adı:</strong> {{ current_user.username }}</p>
 
-    <p><strong>Total Files:</strong> {{ total_files }}</p>
+    <p><strong>Ümumi fayl sayı:</strong> {{ total_files }}</p>
 
 </div>
 
     <div class="card">
 
-        <h1>Dashboard</h1>
+        <h1>İdarə Paneli</h1>
 
-        <p>Upload your files securely</p>
+        <p>Fayllarınızı təhlükəsiz şəkildə yükləyin</p>
 
 <form
     method="POST"
@@ -115,9 +115,9 @@ function toggleDarkMode(){
 
         <label for="fileInput" class="drag-text">
 
-            📂 Drag & Drop files here
+            📂 Faylları bura sürüşdürün
             <br>
-            or click to browse
+            və ya seçmək üçün klikləyin
 
         </label>
 
@@ -131,7 +131,7 @@ function toggleDarkMode(){
 >
 
     <button type="submit">
-        ⬆ Upload
+        ⬆ Yüklə
     </button>
 
 
@@ -141,31 +141,31 @@ function toggleDarkMode(){
 
     <div class="card">
 
-        <h2>Your Files</h2>
+        <h2>Fayllarınız</h2>
 <form method="GET" class="search-box">
 
 
     <input
         type="text"
         name="search"
-        placeholder="Search files..."
+        placeholder="Faylları axtar..."
     >
     <select name="type" class="filter-select">
 
-    <option value="">All Files</option>
+    <option value="">Bütün Fayllar</option>
 
-    <option value="image">Images</option>
+    <option value="image">Şəkillər</option>
 
     <option value="pdf">PDF</option>
 
-    <option value="docx">Documents</option>
+    <option value="docx">Sənədlər</option>
 
-    <option value="ppt">Presentations</option>
+    <option value="ppt">Təqdimatlar</option>
 
 </select>
 
     <button type="submit">
-        🔍 Search
+        🔍 Axtar
     </button>
 
 </form>
@@ -199,15 +199,15 @@ or file.filename.endswith('.pptx') %}
 
 </span>
             <p class="file-date">
-                Uploaded:
+                Yüklənmə tarixi:
                 {{ file.created_at.strftime('%d.%m.%Y %H:%M') }}
             </p>
 
             <p class="download-count">
-                Downloads: {{ file.downloads }}
+                Endirmə sayı: {{ file.downloads }}
             </p>
             <p class="file-size">
-                Size: {{ file.size }}
+                Ölçü: {{ file.size }}
             </p>
 
         </div>
@@ -227,7 +227,7 @@ or file.filename.endswith('.docx') %}
    href="/uploads/{{ file.filename }}"
    target="_blank">
 
-   Preview
+   Önizləmə
 
 </a>
 
@@ -235,15 +235,15 @@ or file.filename.endswith('.docx') %}
 
 <a class="download-btn"
    href="/download/{{ file.filename }}">
-   Download
+   Endir
 </a>
 
 <a
   class="delete-btn"
   href="/delete/{{ file.filename }}"
-  onclick="return confirm('Are you sure you want to delete this file?')"
+  onclick="return confirm('Bu faylı silmək istədiyinizə əminsiniz?')"
 >
-  Delete
+  Sil
 </a>
 
 </div>
@@ -257,10 +257,10 @@ or file.filename.endswith('.docx') %}
 
 <div class="empty-box">
 
-    <h3>📂 No files uploaded</h3>
+    <h3>📂 Fayl yoxdur</h3>
 
     <p>
-        Upload your first file to start using cloud storage.
+        Başlamaq üçün ilk faylınızı yükləyin.
     </p>
 
 </div>
