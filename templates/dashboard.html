@@ -30,11 +30,15 @@ function toggleDarkMode(){
 
     <div class="nav-right">
 
-<img
-    src="{{ url_for('static',
-    filename='profile_pics/' + current_user.profile_pic) }}"
-    class="profile-pic"
->
+<label for="profileInput">
+
+    <img
+        src="{{ url_for('static',
+        filename='profile_pics/' + current_user.profile_pic) }}"
+        class="profile-pic clickable-profile"
+    >
+
+</label>
 
 <span>
     {{ current_user.username }}
@@ -48,9 +52,6 @@ function toggleDarkMode(){
     enctype="multipart/form-data"
 >
 
-<label for="profileInput" class="change-photo-btn">
-    Şəkli dəyiş
-</label>
 
 <input
     type="file"
