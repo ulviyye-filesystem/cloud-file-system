@@ -145,9 +145,9 @@ def dashboard():
 
             db.session.add(new_file)
             db.session.commit()
-            flash('File uploaded successfully!')
+            flash('Fayl uğurla yükləndi!')
         else:
-            flash('Invalid file type!')
+            flash('Bu fayl formatına icazə verilmir!')
 
     search = request.args.get('search')
 
@@ -278,7 +278,7 @@ def delete(filename):
     if file:
         db.session.delete(file)
         db.session.commit()
-        flash('File deleted successfully!')
+        flash('Fayl uğurla silindi!')
 
     return redirect(url_for('dashboard'))
 
@@ -303,7 +303,7 @@ def upload_profile():
 
         db.session.commit()
 
-        flash('Profile picture updated!')
+        flash('Profil şəkli uğurla yeniləndi!')
 
     return redirect(url_for('dashboard'))
 
